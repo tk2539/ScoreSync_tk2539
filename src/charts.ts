@@ -2,10 +2,10 @@ import { sonolus } from "./index.js";
 import * as fs from 'fs';
 import * as path from 'path';
 import { anyToUSC } from "usctool";
-import { uscToLevelData } from "../lib/sonolus-pjsekai-engine-extended/convert.js";
 import { watch } from 'fs/promises';
 import * as zlib from 'zlib';
-import { engineInfo } from "../lib/sonolus-pjsekai-engine-extended/index.js";
+import { uscToLevelData } from "sonolus-pjsekai-engine-extended";
+import { engineInfo } from "sonolus-pjsekai-engine-extended";
 
 export async function convertChart(buffer: Buffer, fileType: string): Promise<Buffer> {
     const content = buffer.toString('utf-8');

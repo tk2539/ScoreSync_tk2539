@@ -1,6 +1,6 @@
 import { sonolus } from "./index.js";
-import { engineInfo } from "../lib/sonolus-pjsekai-engine-extended/index.js";
 import { resolveEngineResource, getLocalIpv4 } from "./utils.js";
+import { engineInfo } from "sonolus-pjsekai-engine-extended";
 
 export const install = () => {
     sonolus.engine.items.push({

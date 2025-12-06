@@ -27,11 +27,12 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
-    "@sonolus/core": "^7.14.1",
+    "@sonolus/core": "^7.14.2",
     "@sonolus/express": "^7.4.0",
-    "@sonolus/free-pack": "^1.1.7",
+    "@sonolus/free-pack": "^1.2.0",
     "express": "^4.21.2",
     "morgan": "^1.10.0",
+    "sonolus-pjsekai-engine-extended": "github:sevenc-nanashi/sonolus-pjsekai-engine-extended#build",
     "typescript": "^5.8.3",
     "usctool": "^0.4.1",
     "yargs": "^18.0.0"
