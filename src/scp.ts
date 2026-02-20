@@ -1,7 +1,7 @@
 import * as fs from 'fs';
 import * as path from 'path';
 import AdmZip from 'adm-zip';
-import { Request, Response } from 'express';
+import { NextFunction, Request, Response } from 'express';
 import { sonolus } from './index.js';
 
 const SCP_DIR = './levels/scp';
@@ -48,11 +48,11 @@ type ScpLevelJson = {
 };
 
 export const setupScpRepository = () => {
-    sonolus.router.get('/sonolus/repository/:hash', async (req: Request, res: Response) => {
+    sonolus.router.get('/sonolus/repository/:hash', async (req: Request, res: Response, next: NextFunction) => {
         const { hash } = req.params as { hash: string };
 
         if (!fs.existsSync(SCP_EXTRACT_DIR)) {
-            res.status(404).send('Not found');
+            next();
             return;
         }
 
@@ -69,9 +69,10 @@ export const setupScpRepository = () => {
                     // このパッケージには存在しない、次を探す
                 }
             }
-            res.status(404).send('Not found');
+            // SCPに見つからなければ次のルート（sonolus.add()登録分）へ
+            next();
         } catch {
-            res.status(500).send('Internal server error');
+            next();
         }
     });
 };
