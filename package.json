@@ -8,6 +8,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "tsc && node dist/index.js",
     "dev": "node --loader ts-node/esm src/index.ts",
+    "dev:engine-test": "node --loader ts-node/esm src/index.ts --scp-engine NextRUSH_P",
     "build": "tsc",
     "build:caxa": "npm run build && caxa -i . -o release/scoresync.exe --exclude \"src/**\" --exclude \"*.ts\" --exclude \"*.map\" --exclude \"release/**\" --exclude \"node_modules/@types/**\" --exclude \".git/**\" --exclude \"*.md\" --exclude \"tsconfig.json\" -- \"{{caxa}}/node_modules/.bin/node\" \"{{caxa}}/dist/index.js\""
   },

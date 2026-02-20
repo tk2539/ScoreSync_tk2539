@@ -78,7 +78,7 @@ export const setupScpRepository = () => {
     });
 };
 
-export const loadScpFiles = async () => {
+export const loadScpFiles = async (engineOverride?: string) => {
     if (!fs.existsSync(SCP_DIR)) {
         fs.mkdirSync(SCP_DIR, { recursive: true });
         console.log(`Created ${SCP_DIR}`);
@@ -92,7 +92,7 @@ export const loadScpFiles = async () => {
         return;
     }
 
-    console.log(`Found ${scpFiles.length} SCP file(s)`);
+    console.log(`Found ${scpFiles.length} SCP file(s)${engineOverride ? ` [engine override: ${engineOverride}]` : ''}`);
 
     for (const scpFile of scpFiles) {
         const scpPath = path.join(SCP_DIR, scpFile);
@@ -216,6 +216,7 @@ export const loadScpFiles = async () => {
                     }
 
                     if (!registeredLevels.has(item.name)) {
+                        const resolvedEngine = engineOverride ?? eng.name;
                         sonolus.level.items.push({
                             name: item.name,
                             version: 1 as const,
@@ -224,7 +225,7 @@ export const loadScpFiles = async () => {
                             author: loc(item.author ?? ''),
                             rating: item.rating ?? 0,
                             tags: tags(item.tags),
-                            engine: eng.name,
+                            engine: resolvedEngine,
                             useSkin: { useDefault: true },
                             useBackground: { useDefault: true },
                             useEffect: { useDefault: true },

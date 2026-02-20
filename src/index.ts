@@ -17,11 +17,16 @@ const argv = yargs(hideBin(process.argv))
         description: "サーバーの起動ポート",
         default: 3939,
     })
+    .option("scp-engine", {
+        type: "string",
+        description: "SCPの全レベルに適用するエンジン名（省略時は譜面ごとのエンジンを使用）",
+    })
     .help()
-    .parseSync() as { port: number; [key: string]: unknown; };
+    .parseSync() as { port: number; "scp-engine"?: string; [key: string]: unknown; };
 
 const ipAddresses = getLocalIpv4();
 const port = argv.port;
+const scpEngine = argv["scp-engine"];
 const chartDirectory = './levels'; 
 app.use(sonolus.router)
 
@@ -31,7 +36,7 @@ async function startServer() {
     getfile()
 
     await initializeCharts(chartDirectory);
-    await loadScpFiles();
+    await loadScpFiles(scpEngine);
 
     sonolus.load(packPath)
     
