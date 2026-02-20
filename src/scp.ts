@@ -28,6 +28,7 @@ type ScpEngine = {
     watchData: Srl;
     previewData: Srl;
     tutorialData: Srl;
+    rom?: Srl;
     configuration: Srl;
 };
 
@@ -208,6 +209,7 @@ export const loadScpFiles = async () => {
                             watchData: eng.watchData,
                             previewData: eng.previewData,
                             tutorialData: eng.tutorialData,
+                            ...(eng.rom ? { rom: eng.rom } : {}),
                             configuration: eng.configuration,
                         });
                         registeredEngines.add(eng.name);
