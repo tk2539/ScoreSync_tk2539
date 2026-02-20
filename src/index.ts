@@ -4,6 +4,7 @@ import { getLocalIpv4, getfile } from "./utils.js";
 import { install } from "./sonolus.js";
 import { packPath } from "@sonolus/free-pack";
 import { initializeCharts } from "./charts.js";
+import { setupScpRepository, loadScpFiles } from "./scp.js";
 import yargs from "yargs";
 import { hideBin } from "yargs/helpers";
 
@@ -25,11 +26,13 @@ const chartDirectory = './levels';
 app.use(sonolus.router)
 
 async function startServer() {
+    setupScpRepository()
     install()
     getfile()
-    
+
     await initializeCharts(chartDirectory);
-    
+    await loadScpFiles();
+
     sonolus.load(packPath)
     
     app.listen(port, () => {
